@@ -128,7 +128,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     messaging \
     CellBroadcastReceiver \
-    Stk \
     telephony-ext \
     rcscommon
 
@@ -233,13 +232,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Citrus Bloats
 PRODUCT_PACKAGES += \
-MusicFX \
 Camera2 \
 SnapdragonGallery \
 Launcher3 \
 LatinIME \
-LiveWallpapersPicker \
-AboutCitrus
+LiveWallpapersPicker
 
 #Themes
 # include vendor/citrus/config/themes_common.mk
