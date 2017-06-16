@@ -118,12 +118,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Telephony packages
 PRODUCT_PACKAGES += \
     messaging \
-    telephony-ext \
-    rcscommon
+    telephony-ext
 
 PRODUCT_BOOT_JARS += \
-    telephony-ext \
-    rcscommon
+    telephony-ext
 
 #RCS //Needed for Contacts and Mms Apps
 PRODUCT_PACKAGES += \
@@ -132,7 +130,8 @@ PRODUCT_PACKAGES += \
     rcs_service_aidl_static \
     rcs_service_api \
     rcs_service_api.xml \
-    rcscommon.xml
+    rcscommon.xml \
+    rcscommon
 
 # Include librsjni explicitly to workaround GMS issue
 PRODUCT_PACKAGES += \
@@ -230,9 +229,6 @@ SnapdragonGallery \
 Launcher3 \
 LatinIME \
 LiveWallpapersPicker
-
-#Themes
-# include vendor/citrus/config/themes_common.mk
 
 # DU Utils Library
 PRODUCT_PACKAGES += \
