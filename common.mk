@@ -31,36 +31,36 @@ PRODUCT_COPY_FILES += \
     vendor/citrus/prebuilt/common/bin/whitelist:system/addon.d/whitelist \
 
 # Boot animation include
-ifneq ($(TARGET_SCREEN_WIDTH) $(TARGET_SCREEN_HEIGHT),$(space))
+# ifneq ($(TARGET_SCREEN_WIDTH) $(TARGET_SCREEN_HEIGHT),$(space))
 
 # determine the smaller dimension
-TARGET_BOOTANIMATION_SIZE := $(shell \
-  if [ $(TARGET_SCREEN_WIDTH) -lt $(TARGET_SCREEN_HEIGHT) ]; then \
-    echo $(TARGET_SCREEN_WIDTH); \
-  else \
-    echo $(TARGET_SCREEN_HEIGHT); \
-  fi )
+# TARGET_BOOTANIMATION_SIZE := $(shell \
+#  if [ $(TARGET_SCREEN_WIDTH) -lt $(TARGET_SCREEN_HEIGHT) ]; then \
+#    echo $(TARGET_SCREEN_WIDTH); \
+#  else \
+#    echo $(TARGET_SCREEN_HEIGHT); \
+#  fi )
 
 # get a sorted list of the sizes
-bootanimation_sizes := $(subst .zip,, $(shell ls vendor/citrus/prebuilt/common/bootanimation))
-bootanimation_sizes := $(shell echo -e $(subst $(space),'\n',$(bootanimation_sizes)) | sort -rn)
+# bootanimation_sizes := $(subst .zip,, $(shell ls vendor/citrus/prebuilt/common/bootanimation))
+# bootanimation_sizes := $(shell echo -e $(subst $(space),'\n',$(bootanimation_sizes)) | sort -rn)
 
 # find the appropriate size and set
-define check_and_set_bootanimation
-$(eval TARGET_BOOTANIMATION_NAME := $(shell \
-  if [ -z "$(TARGET_BOOTANIMATION_NAME)" ]; then
-    if [ $(1) -le $(TARGET_BOOTANIMATION_SIZE) ]; then \
-      echo $(1); \
-      exit 0; \
-    fi;
-  fi;
-  echo $(TARGET_BOOTANIMATION_NAME); ))
-endef
-$(foreach size,$(bootanimation_sizes), $(call check_and_set_bootanimation,$(size)))
+# define check_and_set_bootanimation
+# $(eval TARGET_BOOTANIMATION_NAME := $(shell \
+#  if [ -z "$(TARGET_BOOTANIMATION_NAME)" ]; then
+#    if [ $(1) -le $(TARGET_BOOTANIMATION_SIZE) ]; then \
+#      echo $(1); \
+#      exit 0; \
+#    fi;
+#  fi;
+#  echo $(TARGET_BOOTANIMATION_NAME); ))
+# endef
+# $(foreach size,$(bootanimation_sizes), $(call check_and_set_bootanimation,$(size)))
 
-PRODUCT_COPY_FILES += \
-    vendor/citrus/prebuilt/common/bootanimation/$(TARGET_BOOTANIMATION_NAME).zip:system/media/bootanimation.zip
-endif
+# PRODUCT_COPY_FILES += \
+#    vendor/citrus/prebuilt/common/bootanimation/$(TARGET_BOOTANIMATION_NAME).zip:system/media/bootanimation.zip
+# endif
 
 # init.d support
 PRODUCT_COPY_FILES += \
@@ -76,14 +76,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES +=  \
     vendor/citrus/prebuilt/common/media/LMprec_508.emd:system/media/LMprec_508.emd \
     vendor/citrus/prebuilt/common/media/PFFprec_600.emd:system/media/PFFprec_600.emd
-
-# Enable SIP+VoIP on all targets
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
-
-# Enable wireless Xbox 360 controller support
-PRODUCT_COPY_FILES += \
-    frameworks/base/data/keyboards/Vendor_045e_Product_028e.kl:system/usr/keylayout/Vendor_045e_Product_0719.kl
 
 # Misc packages
 PRODUCT_PACKAGES += \
@@ -109,7 +101,6 @@ PRODUCT_PACKAGES += \
     oprofiled \
     sqlite3 \
     strace \
-    Terminal \
     ThemeInterfacer \
     libbthost_if \
     WallpaperPicker
@@ -127,7 +118,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Telephony packages
 PRODUCT_PACKAGES += \
     messaging \
-    CellBroadcastReceiver \
     telephony-ext \
     rcscommon
 
@@ -150,12 +140,15 @@ PRODUCT_PACKAGES += \
     librsjni
 
 # Mms depends on SoundRecorder for recorded audio messages
-PRODUCT_PACKAGES += \
-    SoundRecorder
+# PRODUCT_PACKAGES += \
+#    SoundRecorder
 
 # TCP Connection Management
 PRODUCT_PACKAGES += tcmiface
 PRODUCT_BOOT_JARS += tcmiface
+
+# Recommend using the non debug dexpreopter
+USE_DEX2OAT_DEBUG ?= false
 
 # World APN list
 PRODUCT_COPY_FILES += \
@@ -258,5 +251,4 @@ PRODUCT_PACKAGES += \
 endif
 
 PRODUCT_PACKAGES += \
-   OmniStyle \
-   OmniJaws
+   OmniStyle
