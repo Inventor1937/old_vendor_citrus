@@ -1,5 +1,8 @@
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 
+# Jack server heap size
+export ANDROID_JACK_VM_ARGS += "-Xmx5g"
+
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true \
     ro.com.google.clientidbase=android-google \
@@ -64,7 +67,6 @@ PRODUCT_COPY_FILES += \
 
 # init.d support
 PRODUCT_COPY_FILES += \
-    vendor/citrus/prebuilt/common/bin/sysinit:system/bin/sysinit \
     vendor/citrus/prebuilt/common/etc/init.d/00banner:system/etc/init.d/00banner \
     vendor/citrus/prebuilt/common/etc/init.d/90userinit:system/etc/init.d/90userinit
 
@@ -159,8 +161,7 @@ PRODUCT_COPY_FILES += \
 
 # Overlays & Include LatinIME dictionaries
 PRODUCT_PACKAGE_OVERLAYS += \
-	vendor/citrus/overlay/common \
-	vendor/citrus/overlay/dictionaries
+	vendor/citrus/overlay/common
 
 # Proprietary latinime libs needed for Keyboard swyping
 ifneq ($(filter arm64,$(TARGET_ARCH)),)
@@ -174,10 +175,10 @@ endif
 # by default, do not update the recovery with system updates
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.recovery_update=false
 
-ifneq ($(TARGET_BUILD_VARIANT),eng)
+# ifneq ($(TARGET_BUILD_VARIANT),eng)
 # Enable ADB authentication
-ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=1
-endif
+# ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=1
+# endif
 
 $(call inherit-product-if-exists, vendor/extra/product.mk)
 
